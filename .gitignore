@@ -1,0 +1,16 @@
+node_modules/
+.next/
+out/
+.env
+.env.local
+artifacts/
+cache/
+typechain-types/
+deployments.json
+coverage/
+coverage.json
+*.log
+.DS_Store
+known-users.json
+fix-router.js
+approve-dex.js

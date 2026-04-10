@@ -1,0 +1,33 @@
+export const DCA_AGENT_ABI = [
+  { inputs: [{ name: "_agenticWallet", type: "address" }], stateMutability: "nonpayable", type: "constructor" },
+  { inputs: [{ name: "token", type: "address" }, { name: "amount", type: "uint256" }], name: "deposit", outputs: [], stateMutability: "nonpayable", type: "function" },
+  { inputs: [], name: "depositNative", outputs: [], stateMutability: "payable", type: "function" },
+  { inputs: [{ name: "token", type: "address" }, { name: "amount", type: "uint256" }], name: "withdraw", outputs: [], stateMutability: "nonpayable", type: "function" },
+  { inputs: [{ name: "amount", type: "uint256" }], name: "withdrawNative", outputs: [], stateMutability: "nonpayable", type: "function" },
+  { inputs: [{ name: "tokenIn", type: "address" }, { name: "tokenOut", type: "address" }, { name: "amountPerExec", type: "uint256" }, { name: "interval", type: "uint256" }], name: "setStrategy", outputs: [], stateMutability: "nonpayable", type: "function" },
+  { inputs: [], name: "cancelStrategy", outputs: [], stateMutability: "nonpayable", type: "function" },
+  { inputs: [{ name: "user", type: "address" }], name: "pullTokensForSwap", outputs: [], stateMutability: "nonpayable", type: "function" },
+  { inputs: [{ name: "user", type: "address" }, { name: "amountOut", type: "uint256" }], name: "reportSwapResult", outputs: [], stateMutability: "nonpayable", type: "function" },
+  { inputs: [{ name: "user", type: "address" }, { name: "amountOut", type: "uint256" }], name: "completeDCA", outputs: [], stateMutability: "nonpayable", type: "function" },
+  { inputs: [{ name: "user", type: "address" }], name: "getStrategy", outputs: [{ components: [{ name: "tokenIn", type: "address" }, { name: "tokenOut", type: "address" }, { name: "amountPerExec", type: "uint256" }, { name: "interval", type: "uint256" }, { name: "active", type: "bool" }], type: "tuple" }], stateMutability: "view", type: "function" },
+  { inputs: [{ name: "user", type: "address" }, { name: "token", type: "address" }], name: "getBalance", outputs: [{ name: "", type: "uint256" }], stateMutability: "view", type: "function" },
+  { inputs: [{ name: "user", type: "address" }], name: "canExecute", outputs: [{ name: "", type: "bool" }], stateMutability: "view", type: "function" },
+  { inputs: [{ name: "user", type: "address" }], name: "lastExecution", outputs: [{ name: "", type: "uint256" }], stateMutability: "view", type: "function" },
+  { inputs: [], name: "totalExecutions", outputs: [{ name: "", type: "uint256" }], stateMutability: "view", type: "function" },
+  { inputs: [], name: "agenticWallet", outputs: [{ name: "", type: "address" }], stateMutability: "view", type: "function" },
+  { anonymous: false, inputs: [{ indexed: true, name: "user", type: "address" }, { indexed: true, name: "token", type: "address" }, { indexed: false, name: "amount", type: "uint256" }], name: "Deposited", type: "event" },
+  { anonymous: false, inputs: [{ indexed: true, name: "user", type: "address" }, { indexed: true, name: "token", type: "address" }, { indexed: false, name: "amount", type: "uint256" }], name: "Withdrawn", type: "event" },
+  { anonymous: false, inputs: [{ indexed: true, name: "user", type: "address" }, { indexed: false, name: "tokenIn", type: "address" }, { indexed: false, name: "tokenOut", type: "address" }, { indexed: false, name: "amountPerExec", type: "uint256" }, { indexed: false, name: "interval", type: "uint256" }], name: "StrategySet", type: "event" },
+  { anonymous: false, inputs: [{ indexed: true, name: "user", type: "address" }], name: "StrategyCancelled", type: "event" },
+  { anonymous: false, inputs: [{ indexed: true, name: "user", type: "address" }, { indexed: true, name: "tokenIn", type: "address" }, { indexed: true, name: "tokenOut", type: "address" }, { indexed: false, name: "amountIn", type: "uint256" }, { indexed: false, name: "amountOut", type: "uint256" }, { indexed: false, name: "timestamp", type: "uint256" }], name: "DCAExecuted", type: "event" },
+  { anonymous: false, inputs: [{ indexed: true, name: "user", type: "address" }, { indexed: true, name: "token", type: "address" }, { indexed: false, name: "amount", type: "uint256" }], name: "TokensPulled", type: "event" },
+  { anonymous: false, inputs: [{ indexed: true, name: "user", type: "address" }, { indexed: true, name: "token", type: "address" }, { indexed: false, name: "amount", type: "uint256" }], name: "TokensReturned", type: "event" },
+] as const;
+
+export const ERC20_ABI = [
+  { inputs: [{ name: "spender", type: "address" }, { name: "amount", type: "uint256" }], name: "approve", outputs: [{ name: "", type: "bool" }], stateMutability: "nonpayable", type: "function" },
+  { inputs: [{ name: "owner", type: "address" }, { name: "spender", type: "address" }], name: "allowance", outputs: [{ name: "", type: "uint256" }], stateMutability: "view", type: "function" },
+  { inputs: [{ name: "account", type: "address" }], name: "balanceOf", outputs: [{ name: "", type: "uint256" }], stateMutability: "view", type: "function" },
+  { inputs: [], name: "decimals", outputs: [{ name: "", type: "uint8" }], stateMutability: "view", type: "function" },
+  { inputs: [], name: "symbol", outputs: [{ name: "", type: "string" }], stateMutability: "view", type: "function" },
+] as const;

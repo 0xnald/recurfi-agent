@@ -79,7 +79,7 @@ export default function DashboardPage() {
         <Wallet className="h-16 w-16 text-silver-dark mb-4" />
         <h1 className="font-display text-4xl font-bold text-gradient-silver">Smart DCA Agent</h1>
         <p className="mt-3 text-muted-foreground max-w-md">
-          Fully onchain dollar-cost averaging — autonomous, transparent, verifiable. Connect your wallet to get started.
+          Fully onchain dollar-cost averaging. Connect your wallet to get started.
         </p>
       </div>
     );
@@ -90,7 +90,7 @@ export default function DashboardPage() {
       <div className="text-center">
         <h1 className="font-display text-4xl font-bold text-gradient-silver sm:text-5xl">Smart DCA Agent</h1>
         <p className="mt-3 text-muted-foreground">
-          Fully onchain dollar-cost averaging — autonomous, transparent, verifiable.
+          Fully onchain dollar-cost averaging.
         </p>
       </div>
 

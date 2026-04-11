@@ -100,12 +100,28 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Missing userAddress" }, { status: 400 });
     }
 
+    // Auto-register user for the keeper
+    try {
+      const fs = require("fs");
+      const usersFile = "./known-users.json";
+      let users: string[] = [];
+      try { users = JSON.parse(fs.readFileSync(usersFile, "utf8")); } catch {}
+      const addr = userAddress.toLowerCase();
+      if (!users.includes(addr)) {
+        users.push(addr);
+        fs.writeFileSync(usersFile, JSON.stringify(users));
+        console.log("[AUTO-REGISTER] New user added to keeper:", addr);
+      }
+    } catch {}
+
     const account = privateKeyToAccount(AGENT_PRIVATE_KEY as `0x${string}`);
-    const walletClient = createWalletClient({ chain: xlayer as any,
+    const walletClient = createWalletClient({
       account,
+      chain: xlayer as any,
       transport: http(RPC_URL),
     });
     const publicClient = createPublicClient({
+      chain: xlayer as any,
       transport: http(RPC_URL),
     });
 
@@ -137,7 +153,8 @@ export async function POST(request: NextRequest) {
 
       // 3. Pull tokens from vault → Agentic Wallet
       console.log("Step 1: Pulling tokens from vault...");
-      const pullTx = await walletClient.writeContract({ chain: xlayer as any,
+      const pullTx = await walletClient.writeContract({
+        chain: xlayer as any,
         address: DCA_AGENT_ADDRESS,
         abi: VAULT_ABI,
         functionName: "pullTokensForSwap",
@@ -156,7 +173,8 @@ export async function POST(request: NextRequest) {
         });
         if ((allowance as bigint) < amountPerExec) {
           console.log("Step 2: Approving DEX approve proxy...");
-          const approveTx = await walletClient.writeContract({ chain: xlayer as any,
+          const approveTx = await walletClient.writeContract({
+            chain: xlayer as any,
             address: tokenIn as `0x${string}`,
             abi: ERC20_ABI,
             functionName: "approve",
@@ -176,7 +194,8 @@ export async function POST(request: NextRequest) {
 
       // 6. Execute swap from Agentic Wallet
       console.log("Step 4: Executing swap...");
-      const swapTx = await walletClient.sendTransaction({ chain: xlayer as any,
+      const swapTx = await walletClient.sendTransaction({
+        chain: xlayer as any,
         to: swapData.tx.to as `0x${string}`,
         data: swapData.tx.data as `0x${string}`,
         value: swapData.tx.value ? BigInt(swapData.tx.value) : BigInt(0),
@@ -201,7 +220,8 @@ export async function POST(request: NextRequest) {
       // 8. Send output tokens from Agentic Wallet → DCA Agent vault
       if (receivedAmount > BigInt(0) && tokenOut.toLowerCase() !== "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee") {
         console.log("Step 5: Sending output tokens back to vault...");
-        const transferTx = await walletClient.writeContract({ chain: xlayer as any,
+        const transferTx = await walletClient.writeContract({
+          chain: xlayer as any,
           address: tokenOut as `0x${string}`,
           abi: ERC20_ABI,
           functionName: "transfer",
@@ -212,7 +232,8 @@ export async function POST(request: NextRequest) {
 
         // 9. Call completeDCA to credit user's vault balance
         console.log("Step 6: Crediting user vault balance...");
-        const completeTx = await walletClient.writeContract({ chain: xlayer as any,
+        const completeTx = await walletClient.writeContract({
+          chain: xlayer as any,
           address: DCA_AGENT_ADDRESS,
           abi: parseAbi(["function completeDCA(address user, uint256 amountOut) external"]),
           functionName: "completeDCA",
@@ -254,7 +275,8 @@ export async function POST(request: NextRequest) {
 
       // 2. Pull tokens from vault → Agentic Wallet
       console.log("Swap: Step 1 - Pulling tokens from vault...");
-      const pullTx = await walletClient.writeContract({ chain: xlayer as any,
+      const pullTx = await walletClient.writeContract({
+        chain: xlayer as any,
         address: DCA_AGENT_ADDRESS,
         abi: parseAbi(["function pullTokens(address user, address token, uint256 amount) external"]),
         functionName: "pullTokens",
@@ -273,7 +295,8 @@ export async function POST(request: NextRequest) {
         })) as bigint;
         if (allowance < swapAmount) {
           console.log("Swap: Step 2 - Approving DEX...");
-          await walletClient.writeContract({ chain: xlayer as any,
+          await walletClient.writeContract({
+            chain: xlayer as any,
             address: fromToken as `0x${string}`,
             abi: ERC20_ABI,
             functionName: "approve",
@@ -292,7 +315,8 @@ export async function POST(request: NextRequest) {
 
       // 5. Execute swap from Agentic Wallet
       console.log("Swap: Step 4 - Executing swap...");
-      const swapTx = await walletClient.sendTransaction({ chain: xlayer as any,
+      const swapTx = await walletClient.sendTransaction({
+        chain: xlayer as any,
         to: swapData.tx.to as `0x${string}`,
         data: swapData.tx.data as `0x${string}`,
         value: swapData.tx.value ? BigInt(swapData.tx.value) : BigInt(0),
@@ -313,7 +337,8 @@ export async function POST(request: NextRequest) {
         if (receivedAmount > BigInt(0)) {
           // 7. Transfer output tokens from Agentic Wallet → vault
           console.log("Swap: Step 5 - Sending output to vault...");
-          await walletClient.writeContract({ chain: xlayer as any,
+          await walletClient.writeContract({
+            chain: xlayer as any,
             address: toToken as `0x${string}`,
             abi: ERC20_ABI,
             functionName: "transfer",
@@ -323,7 +348,8 @@ export async function POST(request: NextRequest) {
 
           // 8. Credit user's vault balance
           console.log("Swap: Step 6 - Crediting user balance...");
-          await walletClient.writeContract({ chain: xlayer as any,
+          await walletClient.writeContract({
+            chain: xlayer as any,
             address: DCA_AGENT_ADDRESS,
             abi: parseAbi(["function creditUser(address user, address token, uint256 amount) external"]),
             functionName: "creditUser",

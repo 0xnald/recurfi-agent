@@ -13,7 +13,7 @@ const USDC = TOKENS.find(t => t.symbol === "USDC")!;
 const buyableTokens = TOKENS.filter(t => t.symbol !== "USDC" && t.symbol !== "USDT");
 
 export default function StrategyPage() {
-  const { isConnected } = useAccount();
+  const { address, isConnected } = useAccount();
   const { data: strategy } = useStrategy();
   const { data: balance } = useVaultBalance(USDC.address);
   const { setStrategy, isPending, isConfirming, isSuccess, error } = useSetStrategy();
@@ -26,8 +26,18 @@ export default function StrategyPage() {
   const strategyActive = strategy && (strategy as any).active;
 
   useEffect(() => {
-    if (isSuccess) toast.success("Strategy set successfully!");
-  }, [isSuccess]);
+    if (isSuccess) {
+      toast.success("Strategy set successfully!");
+      // Register user with keeper for auto-execution
+      if (address) {
+        fetch("/api/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userAddress: address }),
+        }).catch(() => {});
+      }
+    }
+  }, [isSuccess, address]);
 
   const handleSubmit = () => {
     if (!amount || Number(amount) <= 0) {

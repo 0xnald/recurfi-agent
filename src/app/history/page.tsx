@@ -202,7 +202,7 @@ export default function HistoryPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="font-display text-3xl font-bold text-gradient-silver">Transaction History</h1>
-          <p className="mt-2 text-muted-foreground">All DCA executions, deposits, and withdrawals — fully verifiable onchain.</p>
+          <p className="mt-2 text-muted-foreground">All DCA executions, deposits, and withdrawals.</p>
         </div>
         <button
           onClick={fetchEvents}

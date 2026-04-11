@@ -1,19 +1,19 @@
-# RecurFi — Smart DCA Agent (Onchain)
+# RecurFi : Smart DCA Agent (Onchain)
 
-> Fully onchain dollar-cost averaging — autonomous, transparent, verifiable.
+> Fully onchain dollar-cost averaging  autonomous, transparent, verifiable.
 > Built on **X Layer** with **OKX Onchain OS** & **Uniswap** routing.
 
 ---
 
 ## Project Introduction
 
-**RecurFi** is an autonomous DCA (Dollar-Cost Averaging) agent on X Layer. Users deposit tokens into an onchain vault, configure a strategy (token pair, amount, interval), and the **Agentic Wallet** automatically executes recurring swaps via OKX DEX — no manual intervention needed.
+**RecurFi** is an autonomous DCA (Dollar-Cost Averaging) agent on X Layer. Users deposit tokens into an onchain vault, configure a strategy (token pair, amount, interval), and the **Agentic Wallet** automatically executes recurring swaps via OKX DEX, no manual intervention needed.
 
-The Agentic Wallet is a dedicated EOA that serves as the project's onchain identity. It pulls tokens from the vault, swaps via OKX Onchain OS DEX Aggregator (which routes through Uniswap and other DEXes on X Layer), and deposits the output back into the vault — all autonomously.
+The Agentic Wallet is a dedicated EOA that serves as the project's onchain identity. It pulls tokens from the vault, swaps via OKX Onchain OS DEX Aggregator (which routes through Uniswap and other DEXes on X Layer), and deposits the output back into the vault, all autonomously.
 
 ### Why RecurFi?
 
-- **Truly Autonomous**: A keeper process monitors all strategies and auto-executes swaps when cooldowns expire — users set it and forget it.
+- **Truly Autonomous**: A keeper process monitors all strategies and auto-executes swaps when cooldowns expire, users set it and forget it.
 - **Agentic Wallet**: A dedicated EOA acts as the project's onchain identity, executing all swaps on behalf of users.
 - **Best Execution**: OKX Onchain OS DEX Aggregator finds optimal routing across Uniswap pools and other DEXes on X Layer.
 - **Fully Verifiable**: Every deposit, strategy change, swap execution, and withdrawal emits onchain events.
@@ -60,13 +60,13 @@ The Agentic Wallet is a dedicated EOA that serves as the project's onchain ident
 | **Agentic Wallet** (EOA) | Dedicated wallet that serves as the project's onchain identity. Pulls tokens from vault, executes swaps via OKX DEX, deposits output back to vault |
 | **DCA Keeper** (Node.js) | Background process that monitors all active strategies and auto-triggers the Agentic Wallet to execute DCA when cooldowns expire |
 | **Next.js Frontend** | Dashboard, strategy setup, manual execute, swap-back, transaction history |
-| **API Routes** | `/api/dex` — server-side OKX API signing for quotes. `/api/execute` — triggers Agentic Wallet to execute DCA or swap-back |
+| **API Routes** | `/api/dex`  server-side OKX API signing for quotes. `/api/execute`  triggers Agentic Wallet to execute DCA or swap-back |
 
 ### Agent Roles
 
 | Agent | Address | Role |
 |-------|---------|------|
-| **Agentic Wallet** | `<AGENTIC_WALLET_ADDRESS>` | Onchain identity — executes all swaps, holds tokens transiently during swap execution |
+| **Agentic Wallet** | `0xb6fE13c656087406a78Fb62D6d2948A5724Ac2A6` | Onchain identity : executes all swaps, holds tokens transiently during swap execution |
 | **DCA Keeper** | Backend process | Monitors strategies, triggers Agentic Wallet when cooldown expires |
 
 ---
@@ -75,8 +75,8 @@ The Agentic Wallet is a dedicated EOA that serves as the project's onchain ident
 
 | Contract / Agent | Address | Network |
 |------------------|---------|---------|
-| DCA Agent Vault | `<DEPLOYED_ADDRESS>` | X Layer (196) |
-| Agentic Wallet (EOA) | `<AGENTIC_WALLET_ADDRESS>` | X Layer (196) |
+| DCA Agent Vault | `0xb2eCc6469d031ED9e878dC9e28A747c7388874fC` | X Layer (196) |
+| Agentic Wallet (EOA) | `0xb6fE13c656087406a78Fb62D6d2948A5724Ac2A6` | X Layer (196) |
 | OKX DEX Approve Proxy | `0x8b773d83bc66be128c60e07e17c8901f7a64f000` | X Layer (196) |
 | OKX DEX Swap Router | `0xD1b8997AaC08c619d40Be2e4284c9C72cAB33954` | X Layer (196) |
 
@@ -86,11 +86,11 @@ The Agentic Wallet is a dedicated EOA that serves as the project's onchain ident
 
 ### OKX Onchain OS Skills Used
 
-1. **okx-dex-swap** — Core skill. The Agentic Wallet uses the OKX DEX Aggregator API (`/api/v6/dex/aggregator/swap`) to get optimal swap calldata. The API finds the best route across all DEXes on X Layer (including Uniswap pools) and returns transaction data that the Agentic Wallet executes directly.
+1. **okx-dex-swap** : Core skill. The Agentic Wallet uses the OKX DEX Aggregator API (`/api/v6/dex/aggregator/swap`) to get optimal swap calldata. The API finds the best route across all DEXes on X Layer (including Uniswap pools) and returns transaction data that the Agentic Wallet executes directly.
 
-2. **okx-dex-market (quote)** — Used to display estimated output amounts on the Execute and Swap pages before the user confirms.
+2. **okx-dex-market (quote)** : Used to display estimated output amounts on the Execute and Swap pages before the user confirms.
 
-3. **Agentic Wallet** — A dedicated EOA serves as the project's Agentic Wallet / onchain identity. It:
+3. **Agentic Wallet** : A dedicated EOA serves as the project's Agentic Wallet / onchain identity. It:
    - Pulls user tokens from the vault contract
    - Approves the OKX DEX approve proxy to spend tokens
    - Executes swaps via the OKX DEX router
@@ -158,7 +158,8 @@ The OKX DEX Aggregator routes swaps through **Uniswap V3 pools** deployed on X L
 
 | Member | Role |
 |--------|------|
-| 0xnald | Full-stack developer |
+| 0xnald | Full-stack developer ([x](https://x.com/0xnald)) | 
+| amiexbt | Product designer ([x](https://x.com/amiexbt)) | 
 
 ---
 
@@ -168,7 +169,7 @@ RecurFi fills a gap in the X Layer DeFi ecosystem by providing **automated inves
 
 - **Passive DCA**: Users deposit once and the agent handles recurring swaps automatically
 - **Swap volume**: Drives recurring swap volume through X Layer DEXes via OKX DEX aggregation
-- **Agentic primitive**: Demonstrates autonomous agent architecture — vault + EOA agent + keeper
+- **Agentic primitive**: Demonstrates autonomous agent architecture; vault + EOA agent + keeper
 - **Composable**: Other protocols can build on the vault contract for automated trading strategies
 
 ---
@@ -184,8 +185,8 @@ RecurFi fills a gap in the X Layer DeFi ecosystem by providing **automated inves
 ### Install & Run
 
 ```bash
-git clone https://github.com/0xnald/recurfi-smart-dca-agent.git
-cd recurfi-smart-dca-agent
+git clone https://github.com/0xnald/recurfi-agent.git
+cd recurfi-agent
 npm install
 
 # Set up environment
@@ -210,7 +211,7 @@ node scripts/keeper.js
 ### Deployment
 
 - **Frontend**: Vercel (connect GitHub repo, set env vars)
-- **DCA Keeper**: Railway (`node scripts/keeper.js`, set env vars)
+- **DCA Keeper**: Railway or local (`node scripts/keeper.js`, set env vars)
 - **Contracts**: X Layer mainnet (chain 196)
 
 ---

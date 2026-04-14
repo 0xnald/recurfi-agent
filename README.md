@@ -77,6 +77,7 @@ The Agentic Wallet is a dedicated EOA that serves as the project's onchain ident
 |------------------|---------|---------|
 | DCA Agent Vault | `0xb2eCc6469d031ED9e878dC9e28A747c7388874fC` | X Layer (196) |
 | Agentic Wallet (EOA) | `0xb6fE13c656087406a78Fb62D6d2948A5724Ac2A6` | X Layer (196) |
+| DCA Agent Vault Deployer | `0x0b95dF99653f9dA5cBdeaAbeb5B4110dE9D1073a` | X Layer (196) |
 | OKX DEX Approve Proxy | `0x8b773d83bc66be128c60e07e17c8901f7a64f000` | X Layer (196) |
 | OKX DEX Swap Router | `0xD1b8997AaC08c619d40Be2e4284c9C72cAB33954` | X Layer (196) |
 
